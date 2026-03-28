@@ -1,199 +1,771 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Donde el Arte Sucede</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Donde el Arte Sucede</title>
+  <meta name="description" content="Espacio de producción artística para personas jóvenes y adultas con y sin discapacidad. La Plata, Argentina." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    :root {
+      --azul:     #2664B5;
+      --turquesa: #52B2AA;
+      --celeste:  #90BCD5;
+      --gris:     #E6EBE7;
+      --blanco:   #FEFEFF;
+      --dorado:   #F9C412;
+      --texto:    #1A1A1A;
+      --max:      960px;
+    }
 
-<style>
-:root{
-  --azul:#2664B5;
-  --turquesa:#52B2AA;
-  --gris:#E6EBE7;
-  --blanco:#FFFFFF;
-  --texto:#1A1A1A;
-}
+    html { scroll-behavior: smooth; }
 
-/* BASE */
-body{
-  font-family:'Open Sans',sans-serif;
-  font-size:16px;
-  line-height:1.5;
-  background:var(--blanco);
-  color:var(--texto);
-  margin:0;
-}
+    body {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      background: var(--blanco);
+      color: var(--texto);
+      overflow-x: hidden;
+    }
 
-/* ACCESIBILIDAD */
-:focus{
-  outline:3px solid #000;
-  outline-offset:3px;
-}
+    /* ── spark shape ── */
+    .spark {
+      display: inline-block;
+      clip-path: polygon(50% 0%,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0% 50%,40% 40%);
+      background: var(--dorado);
+      flex-shrink: 0;
+    }
 
-/* LAYOUT */
-section{
-  padding:100px 24px;
-  max-width:960px;
-  margin:auto;
-}
+    /* ════════════════════════════════
+       HERO
+    ════════════════════════════════ */
+    .hero {
+      background: var(--gris);
+      min-height: 100svh;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      position: relative;
+      overflow: hidden;
+    }
 
-/* TIPOGRAFÍA */
-h1,h2,h3{
-  text-transform:uppercase;
-  letter-spacing:0.03em;
-  margin-bottom:20px;
-}
+    /* destellos hero — solo esquinas, lejos del texto */
+    .hero-deco { position: absolute; inset: 0; pointer-events: none; }
+    .hero-deco span {
+      position: absolute;
+      clip-path: polygon(50% 0%,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0% 50%,40% 40%);
+    }
+    .hero-deco span:nth-child(1){ width:44px;height:44px;background:var(--dorado);top:10%;right:14%;animation:pulse 3s ease-in-out infinite; }
+    .hero-deco span:nth-child(2){ width:14px;height:14px;background:var(--turquesa);bottom:18%;right:10%;animation:pulse 3s .9s ease-in-out infinite; }
+    .hero-deco span:nth-child(3){ width:10px;height:10px;background:var(--dorado);bottom:28%;left:6%;animation:pulse 3s 1.6s ease-in-out infinite; }
 
-h1{
-  font-size:clamp(42px,8vw,92px);
-  line-height:1;
-}
+    @keyframes pulse {
+      0%,100%{ opacity:1; transform:scale(1); }
+      50%    { opacity:.4; transform:scale(.75); }
+    }
 
-h2{
-  font-size:clamp(26px,4vw,40px);
-}
+    /* nav */
+    .hero-nav {
+      padding: 32px 48px;
+      display: flex; align-items: center; justify-content: space-between;
+      position: relative; z-index: 2;
+    }
 
-h3{
-  font-size:18px;
-}
+    /* logo placeholder */
+    .logo-placeholder {
+      display: flex; align-items: center; gap: 14px;
+    }
+    .logo-box {
+      width: 48px; height: 48px;
+      border: 2px dashed rgba(38,100,181,.35);
+      border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 9px; font-weight: 700; letter-spacing: .12em;
+      color: rgba(38,100,181,.45);
+      line-height: 1.2; text-align: center;
+    }
+    .logo-name {
+      font-size: 13px; font-weight: 700; letter-spacing: .14em;
+      color: var(--azul); line-height: 1.25;
+    }
+    .logo-name span { display: block; font-weight: 400; color: #6b7c8a; font-size: 11px; }
 
-p{
-  font-size:16px;
-  max-width:600px;
-}
+    /* hero body */
+    .hero-body {
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 40px 48px;
+      position: relative; z-index: 2;
+      max-width: 700px;
+    }
 
-/* HERO */
-.hero{
-  background:var(--gris);
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-}
+    .hero-eyebrow {
+      font-size: 11px; font-weight: 600; letter-spacing: .2em; color: #6b7c8a;
+      margin-bottom: 28px;
+      opacity: 0; animation: fadeUp .6s .1s forwards;
+    }
 
-.hero h1 span{
-  color:var(--azul);
-}
+    .hero-title {
+      font-size: clamp(52px, 10vw, 108px);
+      font-weight: 700; line-height: 1;
+      color: var(--texto);
+      margin-bottom: 36px;
+      opacity: 0; animation: fadeUp .7s .25s forwards;
+    }
+    .hero-title .accent { color: var(--azul); }
 
-/* BOTONES */
-.btn{
-  display:inline-block;
-  padding:16px 28px;
-  border-radius:8px;
-  font-weight:700;
-  text-decoration:none;
-  margin-right:10px;
-  margin-top:20px;
-}
+    .hero-sub {
+      font-size: clamp(14px, 1.6vw, 17px);
+      font-weight: 400; line-height: 1.6;
+      color: #3a4d5e;
+      max-width: 460px; margin-bottom: 48px;
+      opacity: 0; animation: fadeUp .7s .4s forwards;
+    }
 
-.btn-primary{
-  background:var(--turquesa);
-  color:#fff;
-}
+    .cta-group {
+      display: flex; gap: 12px; flex-wrap: wrap;
+      opacity: 0; animation: fadeUp .7s .55s forwards;
+    }
 
-.btn-secondary{
-  border:2px solid var(--azul);
-  color:var(--azul);
-}
+    .btn {
+      display: inline-flex; align-items: center; gap: 9px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 13px; font-weight: 700; letter-spacing: .14em;
+      padding: 14px 26px; border-radius: 100px;
+      text-decoration: none; cursor: pointer;
+      transition: transform .15s, box-shadow .15s;
+      border: none;
+    }
+    .btn:hover { transform: translateY(-2px); }
 
-/* BLOQUES */
-.alt{
-  background:var(--gris);
-}
+    .btn-whatsapp {
+      background: var(--turquesa);
+      color: #ffffff;
+      box-shadow: 0 4px 18px rgba(82,178,170,.35);
+    }
+    .btn-whatsapp:hover { box-shadow: 0 7px 24px rgba(82,178,170,.5); }
 
-/* LISTA */
-ul{
-  list-style:none;
-  padding:0;
-}
+    .btn-instagram {
+      border: 1.5px solid var(--azul);
+      color: var(--azul);
+      background: transparent;
+    }
+    .btn-instagram:hover { background: var(--azul); color: var(--gris); }
 
-li{
-  margin-bottom:14px;
-}
+    .hero-foot {
+      padding: 24px 48px;
+      display: flex; justify-content: flex-end; align-items: center;
+      position: relative; z-index: 2;
+    }
+    .scroll-hint { display: flex; align-items: center; gap: 10px; font-size: 10px; letter-spacing: .2em; color: #8a9aaa; }
+    .scroll-line { width: 32px; height: 1px; background: #b0bdc6; }
 
-/* FOOTER */
-footer{
-  background:#111;
-  color:#fff;
-  padding:60px 20px;
-  text-align:center;
-}
-</style>
+    /* ════════════════════════════════
+       FRASE
+    ════════════════════════════════ */
+    .frase {
+      background: var(--blanco);
+      padding: 100px 48px;
+    }
+    .frase-inner {
+      max-width: var(--max); margin: 0 auto;
+      display: flex; flex-direction: column; align-items: center; text-align: center;
+    }
+
+    /* estrella única, separada del texto */
+    .star-sep {
+      display: block; width: 22px; height: 22px; margin: 0 auto 40px;
+      clip-path: polygon(50% 0%,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0% 50%,40% 40%);
+      background: var(--dorado);
+    }
+    .star-sep-sm {
+      display: block; width: 14px; height: 14px; margin: 40px auto 0;
+      clip-path: polygon(50% 0%,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0% 50%,40% 40%);
+      background: var(--turquesa);
+    }
+
+    .frase blockquote {
+      font-size: clamp(28px, 5vw, 56px);
+      font-weight: 700; line-height: 1.1;
+      color: var(--texto); max-width: 840px;
+    }
+    .frase blockquote .h  { color: var(--azul); }
+    .frase blockquote .t  { color: var(--turquesa); }
+
+    /* ════════════════════════════════
+       DESCRIPCIÓN
+    ════════════════════════════════ */
+    .descripcion { background: var(--azul); padding: 96px 48px; }
+    .descripcion-inner {
+      max-width: var(--max); margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start;
+    }
+    .sec-label {
+      display: block; font-size: 10px; font-weight: 700;
+      letter-spacing: .22em; margin-bottom: 20px;
+    }
+    .sec-label.on-color { color: var(--celeste); }
+    .sec-label.on-light  { color: var(--turquesa); }
+
+    .descripcion h2 {
+      font-size: clamp(28px, 3.8vw, 44px);
+      font-weight: 700; line-height: 1.05;
+      color: var(--gris);
+    }
+    .descripcion p {
+      font-size: 15px; line-height: 1.6;
+      color: var(--gris); margin-bottom: 16px;
+    }
+    .descripcion p:last-child { margin-bottom: 0; }
+    .descripcion p strong { color: var(--gris); font-weight: 600; }
+
+    /* ════════════════════════════════
+       PRINCIPIOS
+    ════════════════════════════════ */
+    .principios { background: var(--gris); padding: 96px 48px; }
+    .principios-inner { max-width: var(--max); margin: 0 auto; }
+    .principios-header { margin-bottom: 56px; }
+    .principios-header h2 {
+      font-size: clamp(28px, 3.8vw, 44px);
+      font-weight: 700; line-height: 1.05; color: var(--texto);
+    }
+    .principios-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 3px; background: rgba(38,100,181,.1);
+    }
+    .principio {
+      background: var(--gris); padding: 40px 36px;
+      transition: background .2s;
+    }
+    .principio:hover { background: #d8e2e0; }
+    .principio-num {
+      font-size: 11px; font-weight: 700; letter-spacing: .2em;
+      color: var(--dorado); margin-bottom: 16px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .principio h3 {
+      font-size: 18px; font-weight: 700;
+      color: var(--azul); margin-bottom: 10px; line-height: 1.1;
+    }
+    .principio p { font-size: 13px; line-height: 1.6; color: #4a5d6e; font-weight: 400; }
+
+    /* ════════════════════════════════
+       LENGUAJES
+    ════════════════════════════════ */
+    .lenguajes { background: var(--blanco); padding: 96px 48px; }
+    .lenguajes-inner { max-width: var(--max); margin: 0 auto; }
+    .lenguajes-header {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      gap: 40px; margin-bottom: 48px; flex-wrap: wrap;
+    }
+    .lenguajes-header h2 {
+      font-size: clamp(28px, 3.8vw, 44px);
+      font-weight: 700; line-height: 1.05; color: var(--texto);
+    }
+    .lenguajes-header p { max-width: 320px; font-size: 13px; line-height: 1.6; color: #5a6d7e; }
+    .lenguajes-list { display: flex; flex-wrap: wrap; gap: 10px; }
+    .lenguaje-pill {
+      font-size: 14px; font-weight: 600; letter-spacing: .1em;
+      padding: 12px 24px; border-radius: 100px;
+      border: 2px solid var(--celeste); color: var(--azul);
+      background: transparent; transition: all .2s; cursor: default;
+    }
+    .lenguaje-pill:hover { background: var(--azul); color: var(--gris); border-color: var(--azul); }
+
+    /* ════════════════════════════════
+       PÚBLICO
+    ════════════════════════════════ */
+    .publico { background: var(--azul); padding: 96px 48px; }
+    .publico-inner {
+      max-width: var(--max); margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1.4fr; gap: 72px; align-items: start;
+    }
+    .publico h2 {
+      font-size: clamp(28px, 3.8vw, 44px);
+      font-weight: 700; line-height: 1.05; color: var(--gris);
+    }
+    .publico-lista { list-style: none; }
+    .publico-lista li {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 18px 0;
+      border-bottom: 1px solid rgba(230,235,231,.18);
+      font-size: 14px; line-height: 1.5;
+      color: var(--gris); font-weight: 400;
+    }
+    .publico-lista li:first-child { border-top: 1px solid rgba(230,235,231,.18); }
+    .pub-dot {
+      display: inline-block; width: 9px; height: 9px; min-width: 9px; margin-top: 3px;
+      clip-path: polygon(50% 0%,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0% 50%,40% 40%);
+      background: var(--turquesa); flex-shrink: 0;
+    }
+
+    /* ════════════════════════════════
+       EQUIPO
+    ════════════════════════════════ */
+    .equipo { background: var(--blanco); padding: 96px 48px; }
+    .equipo-inner { max-width: var(--max); margin: 0 auto; }
+    .equipo-header { margin-bottom: 56px; }
+    .equipo-header h2 {
+      font-size: clamp(28px, 3.8vw, 44px);
+      font-weight: 700; line-height: 1.05; color: var(--texto);
+    }
+    .equipo-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+    .equipo-card {
+      padding: 32px 24px;
+      border: 2px solid var(--gris);
+      transition: border-color .2s, transform .2s;
+    }
+    .equipo-card:hover { border-color: var(--turquesa); transform: translateY(-4px); }
+    .equipo-inicial {
+      font-size: 52px; font-weight: 700; line-height: 1;
+      color: var(--azul); margin-bottom: 18px;
+    }
+    .equipo-nombre { font-size: 18px; font-weight: 700; color: var(--texto); margin-bottom: 4px; }
+    .equipo-rol { font-size: 10px; font-weight: 700; letter-spacing: .18em; color: var(--turquesa); margin-bottom: 14px; }
+    .equipo-bio { font-size: 13px; line-height: 1.6; color: #5a6d7e; font-weight: 400; }
+
+    /* ════════════════════════════════
+       GALERÍA
+    ════════════════════════════════ */
+    .galeria { background: var(--gris); padding: 96px 48px; }
+    .galeria-inner { max-width: var(--max); margin: 0 auto; }
+    .galeria-header { margin-bottom: 48px; }
+    .galeria-header h2 {
+      font-size: clamp(28px, 3.8vw, 44px);
+      font-weight: 700; line-height: 1.05; color: var(--texto);
+    }
+    .galeria-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: 220px 220px;
+      gap: 4px;
+    }
+    .galeria-item {
+      background: rgba(38,100,181,.08);
+      border: 2px dashed rgba(38,100,181,.2);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 8px;
+      font-size: 10px; font-weight: 700; letter-spacing: .15em;
+      color: rgba(38,100,181,.4);
+      transition: background .2s;
+      overflow: hidden;
+      position: relative;
+    }
+    .galeria-item:hover { background: rgba(38,100,181,.13); }
+    .galeria-item.featured {
+      grid-column: 1 / 3;
+      grid-row: 1 / 3;
+    }
+    .galeria-item svg { opacity: .3; }
+    .galeria-label { font-size: 9px; letter-spacing: .18em; opacity: .7; }
+
+    /* ════════════════════════════════
+       PRÓXIMAMENTE
+    ════════════════════════════════ */
+    .proximamente { background: var(--azul); padding: 100px 48px; text-align: center; }
+    .proximamente-inner { max-width: 600px; margin: 0 auto; }
+    .prox-star {
+      display: block; width: 36px; height: 36px; margin: 0 auto 28px;
+      clip-path: polygon(50% 0%,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0% 50%,40% 40%);
+      background: var(--dorado);
+    }
+    .proximamente h2 {
+      font-size: clamp(32px, 5.5vw, 62px);
+      font-weight: 700; line-height: 1.0;
+      color: var(--gris); margin-bottom: 20px;
+    }
+    .proximamente p {
+      font-size: 14px; line-height: 1.65;
+      color: var(--gris); margin-bottom: 44px; font-weight: 400;
+    }
+    .proximamente .cta-group { justify-content: center; }
+
+    /* ════════════════════════════════
+       CIERRE
+    ════════════════════════════════ */
+    .cierre { background: var(--texto); padding: 112px 48px; text-align: center; }
+    .cierre-inner { max-width: 780px; margin: 0 auto; }
+    .cierre p {
+      font-size: clamp(32px, 5.5vw, 64px);
+      font-weight: 700; line-height: 1.0; color: var(--gris);
+    }
+    .cierre p .t { color: var(--turquesa); }
+    .cierre-star {
+      display: block; width: 20px; height: 20px; margin: 40px auto 0;
+      clip-path: polygon(50% 0%,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0% 50%,40% 40%);
+      background: var(--dorado);
+    }
+
+    /* ════════════════════════════════
+       FOOTER
+    ════════════════════════════════ */
+    footer {
+      background: #0f171f;
+      padding: 36px 48px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 20px; flex-wrap: wrap;
+    }
+    .footer-id { font-size: 11px; font-weight: 400; color: #8a9aaa; line-height: 1.7; }
+    .footer-id strong { color: #c8d8e0; font-weight: 700; }
+    .footer-links { display: flex; gap: 28px; align-items: center; }
+    .footer-links a {
+      font-size: 11px; font-weight: 700; letter-spacing: .14em;
+      color: #8a9aaa; text-decoration: none; transition: color .2s;
+    }
+    .footer-links a:hover { color: var(--turquesa); }
+    .footer-blog {
+      font-size: 10px; font-weight: 700; letter-spacing: .15em;
+      color: #6a7a84;
+      border: 1px dashed #4a5a64;
+      padding: 5px 12px; border-radius: 100px;
+    }
+
+    /* ════════════════════════════════
+       ANIMACIONES
+    ════════════════════════════════ */
+
+    /* skip link accesibilidad */
+    .skip-link {
+      position: absolute; top: -100%; left: 0;
+      background: #000000; color: #ffffff;
+      padding: 10px 20px; font-size: 13px; font-weight: 700;
+      letter-spacing: .1em; z-index: 9999; text-decoration: none;
+      border-radius: 0 0 4px 0;
+    }
+    .skip-link:focus { top: 0; }
+
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(18px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    .reveal { opacity:0; transform:translateY(24px); transition:opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+
+    /* ════════════════════════════════
+       RESPONSIVE
+    ════════════════════════════════ */
+    @media (max-width: 720px) {
+      .hero-nav,.hero-body,.hero-foot,
+      .frase,.descripcion,.principios,.lenguajes,
+      .publico,.equipo,.galeria,.proximamente,.cierre { padding-left: 20px; padding-right: 20px; }
+      footer { padding: 28px 20px; flex-direction: column; align-items: flex-start; }
+      .descripcion-inner,.publico-inner { grid-template-columns: 1fr; gap: 36px; }
+      .principios-grid { grid-template-columns: 1fr; }
+      .equipo-grid { grid-template-columns: 1fr; }
+      .lenguajes-header { flex-direction: column; align-items: flex-start; }
+      .galeria-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+      .galeria-item.featured { grid-column: 1 / 3; grid-row: auto; height: 200px; }
+      .galeria-item { height: 150px; }
+    }
+
+    /* 6. Focus accesible */
+    *:focus-visible {
+      outline: 3px solid var(--dorado);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+    .btn:focus-visible {
+      outline: 3px solid var(--dorado);
+      outline-offset: 4px;
+    }
+
+    /* 7. Links con estados */
+    a:not(.btn):hover,
+    a:not(.btn):focus-visible {
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    /* 10. Botón principal más jerarquía */
+    .btn-whatsapp {
+      padding: 17px 32px;
+      font-size: 14px;
+    }
+
+    /* Uppercase solo en headings y botones */
+    h1, h2, h3, h4, .btn, .sec-label, .hero-eyebrow,
+    .nav-tag, .equipo-rol, .principio-num, .scroll-hint,
+    .footer-links a, .footer-blog, .galeria-label, .lenguaje-pill,
+    .logo-name, .pub-dot + li { text-transform: none; }
+
+    h1, h2, h3 {
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .btn {
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+    }
+    .sec-label, .hero-eyebrow, .equipo-rol,
+    .principio-num, .footer-links a, .footer-blog,
+    .nav-tag { text-transform: uppercase; letter-spacing: 0.18em; }
+
+  </style>
 </head>
-
 <body>
 
-<a href="#contenido" style="position:absolute;top:-100%;left:0;background:#000;color:#fff;padding:10px;" onfocus="this.style.top='0'">Saltar al contenido</a>
+  <a href="#contenido-principal" class="skip-link">Ir al contenido</a>
 
-<main id="contenido">
+  <!-- ① HERO -->
+  <main id="contenido-principal">
+  <section class="hero" aria-label="Presentación">
+    <div class="hero-deco" aria-hidden="true"><span></span><span></span><span></span></div>
 
-<section class="hero">
-<h1>
-El arte<br>
-no se <span>adapta.</span><br>
-Se expande.
-</h1>
+    <nav class="hero-nav">
+      <div class="logo-placeholder">
+        <div class="logo-box">LOGO<br>AQUÍ</div>
+        <div class="logo-name">
+          Donde el Arte Sucede
+          <span>La Plata · Argentina</span>
+        </div>
+      </div>
+    </nav>
 
-<p>
-Un espacio de producción artística para personas con y sin discapacidad.
-</p>
+    <div class="hero-body">
+      <p class="hero-eyebrow">Dirección artística · Andrés Roa</p>
+      <h1 class="hero-title">
+        El arte<br>no se<br>
+        <span class="accent">adapta.</span><br>
+        Se expande.
+      </h1>
+      <p class="hero-sub">
+        Un espacio de producción artística para personas jóvenes y adultas con y sin discapacidad.
+        Donde crear, explorar y aprender suceden al mismo tiempo.
+      </p>
+      <div class="cta-group">
+        <a href="https://wa.me/NUMERO" class="btn btn-whatsapp">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Contactar
+        </a>
+        <a href="https://instagram.com/USUARIO" class="btn btn-instagram">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          Instagram
+        </a>
+      </div>
+    </div>
 
-<a href="#" class="btn btn-primary">Contactar</a>
-<a href="#" class="btn btn-secondary">Instagram</a>
-</section>
+    <div class="hero-foot">
+      <div class="scroll-hint"><span class="scroll-line"></span>Conocer el proyecto</div>
+    </div>
+  </section>
 
-<section>
-<h2>No son talleres</h2>
-<h3>Son encuentros</h3>
-</section>
+  <!-- ② FRASE -->
+  <section class="frase" aria-label="Frase identidad">
+    <div class="frase-inner">
+      <span class="star-sep reveal" aria-hidden="true"></span>
+      <blockquote class="reveal">
+        <span class="h">"El arte</span><br>
+        no se adapta<br>
+        a las personas:<br>
+        <span class="t">se expande con ellas."</span>
+      </blockquote>
+      <span class="star-sep-sm reveal" aria-hidden="true"></span>
+    </div>
+  </section>
 
-<section class="alt">
-<h2>Qué es</h2>
-<p>Un espacio donde la creación y el aprendizaje suceden al mismo tiempo.</p>
-</section>
+  <!-- ③ DESCRIPCIÓN -->
+  <section class="descripcion" aria-label="Qué es Donde el Arte Sucede">
+    <div class="descripcion-inner">
+      <div class="reveal">
+        <p class="sec-label on-color">Qué es</p>
+        <h2>Un espacio donde la creación y el aprendizaje suceden al mismo tiempo.</h2>
+      </div>
+      <div class="reveal">
+        <p>Donde el Arte Sucede es un espacio de <strong>producción artística</strong> dirigido a personas jóvenes y adultas con y sin discapacidad que quieren iniciarse en prácticas artísticas.</p>
+        <p>No se trata de formación tradicional. Aquí el aprendizaje ocurre <strong>dentro del proceso de creación.</strong></p>
+        <p>Crear, experimentar, equivocarse, descubrir, compartir.</p>
+      </div>
+    </div>
+  </section>
 
-<section>
-<h2>Para quién</h2>
-<ul>
-<li>Personas con y sin discapacidad</li>
-<li>Jóvenes y adultos</li>
-<li>Sin experiencia previa</li>
-</ul>
-</section>
+  <!-- ④ PRINCIPIOS -->
+  <section class="principios" aria-label="Principios del proyecto">
+    <div class="principios-inner">
+      <div class="principios-header reveal">
+        <p class="sec-label on-light">Lo que nos guía</p>
+        <h2>Principios del proyecto</h2>
+      </div>
+      <div class="principios-grid">
+        <div class="principio reveal">
+          <div class="principio-num">01</div>
+          <h3>Arte como derecho</h3>
+          <p>Toda persona tiene derecho a crear y participar de la cultura, sin condiciones.</p>
+        </div>
+        <div class="principio reveal">
+          <div class="principio-num">02</div>
+          <h3>Producción antes que adaptación</h3>
+          <p>Las personas no se adaptan al arte: el arte se transforma con las personas.</p>
+        </div>
+        <div class="principio reveal">
+          <div class="principio-num">03</div>
+          <h3>Diversidad como potencia</h3>
+          <p>Las distintas maneras de percibir, pensar y expresarse enriquecen el proceso artístico.</p>
+        </div>
+        <div class="principio reveal">
+          <div class="principio-num">04</div>
+          <h3>Proceso colectivo</h3>
+          <p>El arte sucede en vínculo con otras personas. La creación es siempre un encuentro.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<section class="alt">
-<h2>Equipo</h2>
-<p>Andrés Roa — Dirección</p>
-<p>Félix Presti — Teatro</p>
-<p>Ian Roa — Asistente</p>
-</section>
+  <!-- ⑤ LENGUAJES -->
+  <section class="lenguajes" aria-label="Lenguajes artísticos">
+    <div class="lenguajes-inner">
+      <div class="lenguajes-header reveal">
+        <div>
+          <p class="sec-label on-light">Lo que hacemos</p>
+          <h2>Lenguajes artísticos</h2>
+        </div>
+        <p>El espacio integra distintas prácticas según el grupo y sus posibilidades creativas.</p>
+      </div>
+      <div class="lenguajes-list reveal">
+        <span class="lenguaje-pill">Música</span>
+        <span class="lenguaje-pill">Canto</span>
+        <span class="lenguaje-pill">Movimiento y expresión corporal</span>
+        <span class="lenguaje-pill">Danza teatro</span>
+        <span class="lenguaje-pill">Narración oral</span>
+        <span class="lenguaje-pill">Experiencias interdisciplinarias</span>
+      </div>
+    </div>
+  </section>
 
-<section>
-<h2>Próximamente</h2>
-<p>Muy pronto abrimos inscripciones.</p>
-<a href="#" class="btn btn-primary">Quiero enterarme</a>
-</section>
+  <!-- ⑥ PÚBLICO -->
+  <section class="publico" aria-label="Público objetivo">
+    <div class="publico-inner">
+      <div class="reveal">
+        <p class="sec-label on-color">Para quién</p>
+        <h2>Este espacio es para vos</h2>
+      </div>
+      <ul class="publico-lista">
+        <li class="reveal"><span class="pub-dot" aria-hidden="true"></span>Personas jóvenes y adultas con o sin discapacidad</li>
+        <li class="reveal"><span class="pub-dot" aria-hidden="true"></span>Quienes quieran iniciarse en prácticas artísticas</li>
+        <li class="reveal"><span class="pub-dot" aria-hidden="true"></span>Quienes busquen un espacio de creación colectiva</li>
+        <li class="reveal"><span class="pub-dot" aria-hidden="true"></span>Quienes nunca hayan tenido acceso a talleres de arte</li>
+        <li class="reveal"><span class="pub-dot" aria-hidden="true"></span>Quienes quieran explorar sin presión de resultado</li>
+      </ul>
+    </div>
+  </section>
 
-<section class="alt">
-<h2>Galería</h2>
-<p>Próximamente imágenes del proceso</p>
-</section>
+  <!-- ⑦ EQUIPO -->
+  <section class="equipo" aria-label="El equipo">
+    <div class="equipo-inner">
+      <div class="equipo-header reveal">
+        <p class="sec-label on-light">Quiénes somos</p>
+        <h2>El equipo</h2>
+      </div>
+      <div class="equipo-grid">
+        <div class="equipo-card reveal">
+          <div class="equipo-inicial">A.</div>
+          <div class="equipo-nombre">Andrés Roa</div>
+          <div class="equipo-rol">Dirección artística y pedagógica</div>
+          <p class="equipo-bio">Músico, educador y gestor cultural. Su trayectoria cruza arte, educación y discapacidad desde la convicción de que la creación artística es un derecho cultural.</p>
+        </div>
+        <div class="equipo-card reveal">
+          <div class="equipo-inicial">F.</div>
+          <div class="equipo-nombre">Félix Presti</div>
+          <div class="equipo-rol">Danza teatro y expresión corporal</div>
+          <p class="equipo-bio">Profesor de Teatro, Bailarín de Contact Improvisación y Técnico en Actuación. Coordinador de Danza Teatro en los Juegos Bonaerenses.</p>
+        </div>
+        <div class="equipo-card reveal">
+          <div class="equipo-inicial">I.</div>
+          <div class="equipo-nombre">Ian Roa</div>
+          <div class="equipo-rol">Canto y asistencia artística</div>
+          <p class="equipo-bio">Cantante con experiencia en el acompañamiento a artistas en procesos creativos y en eventos culturales como los Juegos Bonaerenses.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<section>
-<h2>Cierre</h2>
-<p>
-Porque el arte no se adapta.<br>
-Se expande con las personas.
-</p>
-</section>
+  <!-- ⑧ GALERÍA -->
+  <section class="galeria" aria-label="Galería de fotos">
+    <div class="galeria-inner">
+      <div class="galeria-header reveal">
+        <p class="sec-label on-light">El proceso</p>
+        <h2>Galería</h2>
+      </div>
+      <div class="galeria-grid reveal">
+        <div class="galeria-item featured">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#2664B5" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span class="galeria-label">Foto destacada</span>
+        </div>
+        <div class="galeria-item">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2664B5" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span class="galeria-label">Foto 2</span>
+        </div>
+        <div class="galeria-item">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2664B5" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span class="galeria-label">Foto 3</span>
+        </div>
+        <div class="galeria-item">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2664B5" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span class="galeria-label">Foto 4</span>
+        </div>
+        <div class="galeria-item">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2664B5" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+          <span class="galeria-label">Foto 5</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
-</main>
+  <!-- ⑨ PRÓXIMAMENTE -->
+  <section class="proximamente" aria-label="Próximamente">
+    <div class="proximamente-inner">
+      <span class="prox-star reveal" aria-hidden="true"></span>
+      <h2 class="reveal">El espacio<br>está por abrir.</h2>
+      <p class="reveal">Escribinos para conocer más, sumarte al proyecto o ser de los primeros en enterarte de las fechas de inicio.</p>
+      <div class="cta-group reveal">
+        <a href="https://wa.me/NUMERO" class="btn btn-whatsapp">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Escribirnos
+        </a>
+        <a href="https://instagram.com/USUARIO" class="btn btn-instagram" style="border-color:var(--gris);color:var(--gris);">Ver Instagram</a>
+      </div>
+    </div>
+  </section>
 
-<footer>
-<p>Donde el Arte Sucede · La Plata</p>
-</footer>
+  <!-- ⑩ CIERRE -->
+  <section class="cierre" aria-label="Cierre">
+    <div class="cierre-inner">
+      <p class="reveal">
+        Porque el arte<br>no se adapta.<br>
+        <span class="t">Se expande<br>con ellas.</span>
+      </p>
+      <span class="cierre-star reveal" aria-hidden="true"></span>
+    </div>
+  </section>
 
+  </main><!-- fin #contenido-principal -->
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-id">
+      <strong>Donde el Arte Sucede</strong><br>
+      Dirección artística: Andrés Roa · La Plata, Argentina
+    </div>
+    <div class="footer-links">
+      <a href="https://wa.me/NUMERO">WhatsApp</a>
+      <a href="https://instagram.com/USUARIO">Instagram</a>
+      <span class="footer-blog">Blog · Próximamente</span>
+    </div>
+  </footer>
+
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 50);
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
+    reveals.forEach(el => io.observe(el));
+  </script>
 </body>
 </html>
