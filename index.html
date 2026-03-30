@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="color-scheme" content="light">
+  <meta name="supported-color-schemes" content="light">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Donde el Arte Sucede</title>
   <meta name="description" content="Espacio de producción artística para personas jóvenes y adultas con y sin discapacidad. La Plata, Argentina." />
@@ -28,6 +29,8 @@
     * { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 
     body {
+      background-color: #FEFEFF !important;
+      color: #1f1f23 !important;
       font-family: 'Open Sans', sans-serif;
       font-size: 1.125rem;
       line-height: 1.5;
@@ -522,6 +525,10 @@
 
     .frase blockquote { text-transform: uppercase; }
     .cierre p { text-transform: uppercase; }
+    /* Bloqueo dark mode Android Chrome */
+    html { filter: none !important; }
+    section, footer, div { background-color: inherit !important; color: inherit !important; }
+
   </style>
 </head>
 <body>
