@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="color-scheme" content="light">
+  <meta name="color-scheme" content="light only">
   <meta name="supported-color-schemes" content="light">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Donde el Arte Sucede</title>
@@ -14,7 +14,7 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      color-scheme: light;
+      color-scheme: light only;
       --azul:     #2664B5;
       --turquesa: #52B2AA;
       --celeste:  #90BCD5;
@@ -516,25 +516,6 @@
     /* Titulares 2 y 3 en mayúsculas */
     .frase blockquote { text-transform: uppercase; }
     .cierre p { text-transform: uppercase; }
-
-    /* Bloqueo dark mode Android Chrome */
-    html { filter: none !important; }
-
-    @media (prefers-color-scheme: dark) {
-      body { background: #0f171f; color: #E6EBE7; }
-      .hero { background: #1a2430; }
-      .descripcion, .publico, .proximamente { background: #1f3f73; }
-      .frase, .lenguajes, .equipo, .cierre { background: #0f171f; }
-      .principios, .galeria { background: #162029; }
-      .btn-instagram { border-color: #90BCD5; color: #90BCD5; }
-      .btn-whatsapp { background: #52B2AA; }
-      .equipo-card { border-color: rgba(144,188,213,0.25); }
-      .principio { background: #162029; }
-      .principio:hover { background: #1e2e3e; }
-      .lenguaje-pill { border-color: #90BCD5; color: #90BCD5; }
-      .footer-id, .footer-links a { color: #90BCD5; }
-      footer { background: #0a1018; }
-    }
 
     .is-hidden { display: none; }
   </style>
